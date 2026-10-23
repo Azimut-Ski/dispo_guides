@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Azimut — Planning Guides Hiver 26-27</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --primary-light: #334155;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      
+      --dispo-bg: #f0fdf4;
+      --dispo-text: #166534;
+      --dispo-border: #22c55e;
+      
+      --occupe-bg: #fef2f2;
+      --occupe-text: #991b1b;
+      --occupe-border: #ef4444;
+      
+      --option-bg: #fffbeb;
+      --option-text: #92400e;
+      --option-border: #f59e0b;
+
+      --sejour-bg: #eff6ff;
+      --sejour-text: #1e40af;
+      --sejour-border: #3b82f6;
+      
+      --radius: 12px;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px 10px;
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      max-height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 2px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .guide-badge {
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #ffffff;
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 100%;
+    }
+
+    .guide-badge .guide-label {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .guide-badge .guide-name {
+      color: var(--primary);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+      flex-shrink: 0;
+    }
+
+    .welcome-notice {
+      background-color: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      color: #03436a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      word-break: break-word;
+    }
+
+    .welcome-notice p {
+      margin: 0;
+    }
+
+    .welcome-notice p + p {
+      margin-top: 10px;
+    }
+
+    .summary-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+      scroll-margin-top: 24px;
+      display: none;
+      width: 100%;
+    }
+
+    .summary-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .summary-section-subtitle {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+
+    .summary-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .summary-grid-top { display: none; width: 100%; }
+
+    .summary-grid-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+
+    .summary-card {
+      padding: 10px 4px;
+      border-radius: 8px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .summary-card.dispo { background: var(--dispo-bg); color: var(--dispo-text); }
+    .summary-card.occupe { background: var(--occupe-bg); color: var(--occupe-text); }
+    .summary-card.option { background: var(--option-bg); color: var(--option-text); }
+    
+    .summary-card.sejour {
+      background: var(--sejour-bg);
+      color: var(--sejour-text);
+      border: 1px solid var(--sejour-border);
+      text-align: left;
+      padding: 12px 14px;
+      width: 100%;
+    }
+
+    .sejour-header-count {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sejour-title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-count {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .summary-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+    }
+
+    .btn-toggle-sejours {
+      background: #ffffff;
+      border: 1px solid var(--sejour-border);
+      color: var(--sejour-text);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-toggle-sejours svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: #64748b;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-toggle-sejours.open svg {
+      transform: rotate(180deg);
+    }
+
+    .sejours-list-recap {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #bfdbfe;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .sejour-item-recap {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #ffffff;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #dbeafe;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .sejour-item-recap .sejour-nom-text {
+      color: var(--primary);
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .sejour-date-tag {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .btn-espace-azimut {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 18px auto 4px auto;
+      width: fit-content;
+      max-width: 100%;
+      background-color: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-espace-azimut:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+
+    .btn-start {
+      display: none;
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .status-banner {
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      display: none;
+      word-break: break-word;
+    }
+    .status-banner.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; display: block; }
+    .status-banner.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; display: block; }
+
+    .month-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+      display: none;
+      scroll-margin-top: 16px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .month-card.active { display: block; }
+
+    .month-card.completed {
+      border-left: 4px solid var(--dispo-border);
+      background: #fafafa;
+    }
+
+    body.selection-finished .month-card {
+      opacity: 0.45;
+      filter: grayscale(80%);
+    }
+
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .month-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .status-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    .btn-edit {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .btn-edit:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .month-body {
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .month-choices-top {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+
+    .month-choices-bottom {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-month-choice {
+      padding: 10px 6px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.825rem;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn-month-choice.btn-custom {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      max-width: 260px;
+    }
+
+    .btn-month-choice.occupe { color: #dc2626; }
+    .btn-month-choice.dispo { color: #16a34a; }
+
+    .btn-month-choice.selected-occupe {
+      background-color: var(--occupe-bg) !important;
+      border: 2px solid var(--occupe-border) !important;
+      color: var(--occupe-text) !important;
+      font-weight: 700;
+    }
+
+    .btn-month-choice.selected-dispo {
+      background-color: var(--dispo-bg) !important;
+      border: 2px solid var(--dispo-border) !important;
+      color: var(--dispo-text) !important;
+      font-weight: 700;
+    }
+
+    .btn-month-choice.selected-custom {
+      background-color: #f1f5f9 !important;
+      border: 2px solid var(--primary-light) !important;
+      color: var(--primary) !important;
+      font-weight: 700;
+    }
+
+    .weeks-detail {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .weeks-detail.open { display: block; }
+
+    .grid-weeks {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    .week-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      width: 100%;
+    }
+
+    .week-card.disponible { background: var(--dispo-bg); border-color: #bbf7d0; }
+    .week-card.occupe { background: var(--occupe-bg); border-color: #fecaca; }
+    .week-card.option { background: var(--option-bg); border-color: #fef3c7; }
+    .week-card.sejour-engagé { 
+      background: #eff6ff; 
+      border: 1px solid #93c5fd; 
+    }
+
+    .week-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-bottom: 6px;
+      text-align: center;
+      display: block;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .info-bubble-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #94a3b8;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      cursor: help;
+      position: relative;
+      flex-shrink: 0;
+      margin-left: 4px;
+      vertical-align: middle;
+      transition: background-color 0.15s ease;
+    }
+
+    .info-bubble-trigger:hover {
+      background-color: #64748b;
+    }
+
+    .info-bubble-trigger:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      line-height: 1.35;
+      white-space: normal;
+      width: 200px;
+      max-width: 80vw;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+
+    .info-bubble-trigger:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 105%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--primary) transparent transparent transparent;
+      z-index: 101;
+      pointer-events: none;
+    }
+
+    .status-options {
+      display: flex;
+      gap: 2px;
+      background: #ffffff;
+      padding: 2px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .opt-btn {
+      flex: 1;
+      padding: 6px 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .week-card.disponible .opt-btn[data-type="Disponible"] { background: var(--dispo-border); color: #ffffff; }
+    .week-card.occupe .opt-btn[data-type="Occupé"] { background: var(--occupe-border); color: #ffffff; }
+    .week-card.option .opt-btn[data-type="Option"] { background: var(--option-border); color: #ffffff; }
+
+    .sejour-badge-locked {
+      display: block;
+      padding: 8px;
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      border-radius: 6px;
+      text-decoration: none;
+      text-align: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .sejour-badge-locked .sejour-text-main {
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+
+    .sejour-badge-locked .sejour-text-sub {
+      font-size: 0.68rem;
+      color: #64748b;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .sejour-badge-locked .sejour-icon-info {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: #64748b;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .sejour-badge-locked .sejour-text-sub:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 400;
+      line-height: 1.35;
+      white-space: normal;
+      width: 220px;
+      max-width: 85vw;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      pointer-events: none;
+    }
+
+    .sejour-badge-locked .sejour-text-sub:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--primary) transparent transparent transparent;
+      z-index: 101;
+      pointer-events: none;
+    }
+
+    .comment-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      margin-top: 8px;
+      display: inline-block;
+      text-decoration: underline;
+    }
+
+    .comment-container {
+      margin-top: 8px;
+      display: none;
+      width: 100%;
+    }
+
+    .comment-container.open { display: block; }
+
+    .comment-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .comment-textarea {
+      flex: 1;
+      height: 56px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-sizing: border-box;
+      resize: vertical;
+      background-color: #f8fafc;
+      color: var(--text);
+    }
+
+    .comment-textarea:disabled {
+      background-color: #f1f5f9;
+      color: #475569;
+      border-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    .btn-action-comment {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-comment:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: var(--primary-light);
+    }
+
+    .btn-action-comment:disabled {
+      background-color: #f1f5f9;
+      color: #cbd5e1;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    .btn-action-comment.validated-mode {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: var(--primary-light);
+    }
+
+    .next-btn-wrapper {
+      float: right;
+      margin-top: 10px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .btn-next {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-next.btn-next-disabled {
+      background-color: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed !important;
+    }
+
+    .save-btn-wrapper {
+      position: relative;
+      margin-top: 24px;
+      width: 100%;
+    }
+
+    .incomplet-tooltip-bubble {
+      position: absolute;
+      bottom: 125%;
+      right: 0;
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.35;
+      white-space: normal;
+      width: 230px;
+      max-width: 85vw;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      animation: fadeInTooltip 0.2s ease-out;
+    }
+
+    .incomplet-tooltip-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 20px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #0f172a transparent transparent transparent;
+    }
+
+    .save-disabled-bubble {
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      line-height: 1.4;
+      white-space: normal;
+      width: 280px;
+      max-width: 90vw;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      animation: fadeInTooltip 0.2s ease-out;
+    }
+
+    .save-disabled-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #0f172a transparent transparent transparent;
+    }
+
+    @keyframes fadeInTooltip {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-save {
+      display: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      cursor: not-allowed;
+      background-color: #cbd5e1;
+      color: #64748b;
+      margin-top: 0;
+      transition: all 0.3s ease;
+    }
+
+    .btn-save.ready {
+      background-color: var(--primary);
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .btn-save.highlight-pulse {
+      animation: pulseGlow 1.5s infinite alternate;
+      box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.25), 0 8px 20px rgba(15, 23, 42, 0.3);
+      transform: scale(1.02);
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4), 0 4px 12px rgba(15, 23, 42, 0.2);
+      }
+      100% {
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.8), 0 8px 24px rgba(15, 23, 42, 0.4);
+      }
+    }
+
+    .btn-save.success-state {
+      background-color: var(--dispo-border);
+      color: #ffffff;
+      cursor: default;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .loading-overlay.active { display: flex; }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #ffffff;
+      animation: spin 0.8s ease-in-out infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .modal-end-card {
+      border: 1px solid #cbd5e1;
+      border-top: 4px solid var(--primary);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .modal-end-icon {
+      width: 48px;
+      height: 48px;
+      background-color: #e0f2fe;
+      color: #0284c7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px auto;
+      font-size: 1.35rem;
+    }
+
+    .btn-popin-sobriete {
+      background-color: #475569 !important;
+      border-color: #475569 !important;
+      color: #ffffff !important;
+    }
+
+    .btn-popin-sobriete:hover {
+      background-color: #334155 !important;
+      border-color: #334155 !important;
+    }
+
+    @media (max-width: 576px) {
+      body {
+        padding: 12px 8px 75px 8px !important;
+      }
+      header {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .brand-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .summary-box {
+        padding: 12px;
+      }
+      .summary-grid-bottom { 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 4px; 
+      }
+      .summary-card { 
+        padding: 8px 2px; 
+      }
+      .summary-count { 
+        font-size: 1.05rem; 
+      }
+      .summary-label { 
+        font-size: 0.58rem; 
+      }
+      .month-card {
+        padding: 12px;
+      }
+      .month-choices-top { 
+        grid-template-columns: 1fr; 
+      }
+      .grid-weeks { 
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+        gap: 6px; 
+      }
+      .opt-btn {
+        font-size: 0.72rem;
+        padding: 5px 0;
+      }
+      .welcome-notice { 
+        font-size: 0.88rem; 
+        padding: 12px 14px; 
+      }
+      .next-btn-wrapper {
+        width: 100%;
+        float: none;
+        margin-top: 12px;
+      }
+      .btn-next {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+      .incomplet-tooltip-bubble {
+        right: 50%;
+        transform: translateX(50%);
+        width: 90%;
+      }
+      .incomplet-tooltip-bubble::after {
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="modal fade" id="confirmationEndModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content border-0 modal-end-card">
+        <div class="modal-body p-4 text-center">
+          <div class="modal-end-icon">📋</div>
+          <h6 class="fw-bold text-dark mb-2 fs-6">Saisie terminée !</h6>
+          <p class="text-secondary small mb-4" style="line-height: 1.45; font-size: 0.85rem;">
+            Tes mois sont renseignés.<br>N'oublie pas de cliquer sur <strong>« Enregistrer mes disponibilités »</strong> pour finaliser.
+          </p>
+          <button type="button" class="btn btn-popin-sobriete btn-sm w-100 py-2 rounded-3 fw-semibold shadow-sm" onclick="fermerModalEtScroller()">
+            J'ai compris →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div style="font-weight: 600; font-size: 1rem;">Enregistrement de tes disponibilités...</div>
+    <div style="font-size: 0.8rem; opacity: 0.8; margin-top: 4px;">Merci de patienter quelques instants</div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand-header">
+        <img src="https://azimut.ski/public/img/logo.png" alt="Azimut Logo" class="brand-logo">
+        <div>
+          <h1>Azimut</h1>
+          <div class="subtitle">Planning guides : Hiver 26-27</div>
+        </div>
+      </div>
+      <div id="guide-info" class="guide-badge">
+        <span class="status-dot"></span>
+        <span class="guide-label">Guide :</span>
+        <span class="guide-name">Chargement...</span>
+      </div>
+    </header>
+
+    <div id="welcome-notice" class="welcome-notice" style="display: none;">
+      <p>Hello ✌️ Cet outil te permet de renseigner tes dispos pour la saison avec Azimut.</p>
+      <p>Grâce aux périodes renseignées, on constitue notre planning guides. Avant de t'attribuer des séjours sur tes semaines "Dispo", on te contactera pour être sûr que tout est bon pour toi !</p>
+      <p>ℹ️ Ce formulaire est personnel : toi seul y as accès, et tu pourras revenir modifier tes choix à tout moment !</p>
+    </div>
+
+    <!-- BLOC RÉCAPITULATIF -->
+    <div id="summary-section" class="summary-box">
+      <div class="summary-title">Récapitulatif de ta saison</div>
+
+      <div class="summary-container">
+        <div id="summary-top" class="summary-grid-top">
+          <div class="summary-card sejour">
+            <div class="sejour-header-count">
+              <div class="sejour-title-left">
+                <div id="count-sejour" class="summary-count">0</div>
+                <div class="summary-label">Séjours attribués par Azimut</div>
+              </div>
+              <button id="btn-toggle-sejours-list" class="btn-toggle-sejours" onclick="toggleListeSejoursRecap()">
+                <span>Afficher le détail</span>
+                <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+            
+            <div id="sejours-list-container" class="sejours-list-recap" style="display: none;"></div>
+
+            <a id="btn-espace-azimut-guide" href="https://azimut.ski/admin/new.php" target="_blank" class="btn-espace-azimut" style="display: none;">
+              Retrouve tes séjours sur l'espace Azimut ↗
+            </a>
+          </div>
+        </div>
+
+        <div id="summary-dispos-subtitle" class="summary-section-subtitle" style="display: none;">
+          Tes semaines dispos
+        </div>
+
+        <div id="summary-bottom" class="summary-grid-bottom">
+          <div class="summary-card dispo">
+            <div class="summary-label">Disponibles</div>
+            <div id="count-dispo" class="summary-count">0</div>
+          </div>
+          <div class="summary-card occupe">
+            <div class="summary-label">Occupées</div>
+            <div id="count-occupe" class="summary-count">0</div>
+          </div>
+          <div class="summary-card option">
+            <div class="summary-label">Peut-être</div>
+            <div id="count-option" class="summary-count">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="start-btn" class="btn-start" onclick="demarrerRemplissage()">
+      🚀 Je renseigne mes disponibilités
+    </button>
+
+    <div id="banner" class="status-banner"></div>
+
+    <main id="months-wrapper"></main>
+
+    <div class="save-btn-wrapper" onclick="clicSurContainerBoutonEnregistrer(event)">
+      <div id="save-disabled-bubble" class="save-disabled-bubble" style="display: none;">
+        Merci de renseigner tes dispos sur tous les mois de cet hiver avant d'enregistrer !
+      </div>
+      <button id="save-btn" class="btn-save" onclick="enregistrerDispos()" disabled>Valide tous les mois pour pouvoir enregistrer</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // URL DE VOTRE APPLICATION WEB GOOGLE APPS SCRIPT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLHp2ZdLhQqDVOE5-XhxaaMa8e57Zod8SJT9RH7l-dNQDFws4SRO2h6a_4_9gv0dOlaw/exec";
+
+    // STRUCTURE DE LA SAISON HIVER 2026 - 2027
+    const structureMois = [
+      { id: "12", nom: "Décembre", semaines: [
+        { code: "S51 (14/12 - 20/12)", label: "Semaine 51 : 14/12 - 20/12" },
+        { code: "S52 (21/12 - 27/12)", label: "Semaine 52 : 21/12 - 27/12" },
+        { code: "S53 (28/12 - 03/01)", label: "Semaine 53 : 28/12 - 03/01" }
+      ]},
+      { id: "01", nom: "Janvier", semaines: [
+        { code: "S1 (04/01 - 10/01)",  label: "Semaine 1 : 04/01 - 10/01" },
+        { code: "S2 (11/01 - 17/01)",  label: "Semaine 2 : 11/01 - 17/01" },
+        { code: "S3 (18/01 - 24/01)",  label: "Semaine 3 : 18/01 - 24/01" },
+        { code: "S4 (25/01 - 31/01)",  label: "Semaine 4 : 25/01 - 31/01" }
+      ]},
+      { id: "02", nom: "Février", semaines: [
+        { code: "S5 (01/02 - 07/02)", label: "Semaine 5 : 01/02 - 07/02" },
+        { code: "S6 (08/02 - 14/02)", label: "Semaine 6 : 08/02 - 14/02" },
+        { code: "S7 (15/02 - 21/02)", label: "Semaine 7 : 15/02 - 21/02" },
+        { code: "S8 (22/02 - 28/02)", label: "Semaine 8 : 22/02 - 28/02" }
+      ]},
+      { id: "03", nom: "Mars", semaines: [
+        { code: "S9 (01/03 - 07/03)",   label: "Semaine 9 : 01/03 - 07/03" },
+        { code: "S10 (08/03 - 14/03)", label: "Semaine 10 : 08/03 - 14/03" },
+        { code: "S11 (15/03 - 21/03)", label: "Semaine 11 : 15/03 - 21/03" },
+        { code: "S12 (22/03 - 28/03)", label: "Semaine 12 : 22/03 - 28/03" }
+      ]},
+      { id: "04", nom: "Avril", semaines: [
+        { code: "S13 (29/03 - 04/04)", label: "Semaine 13 : 29/03 - 04/04" },
+        { code: "S14 (05/04 - 11/04)", label: "Semaine 14 : 05/04 - 11/04" },
+        { code: "S15 (12/04 - 18/04)", label: "Semaine 15 : 12/04 - 18/04" },
+        { code: "S16 (19/04 - 25/04)", label: "Semaine 16 : 19/04 - 25/04" }
+      ]}
+    ];
+
+    let disposGuide = {};
+    let sejoursAgence = {}; 
+    let commentairesMois = {}; 
+    let commentairesValidesMois = {}; 
+    let moisOuvertEnEdition = null; 
+    let aDesModifications = false;
+    let aDesDonneesEnregistrees = false;
+    let modalConfirmationEndInstance = null;
+    let ecouteurPremierClicPostPopin = false;
+    let timerBulleIncomplet = null;
+    let timerBulleSaveDisabled = null;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const guideTokenParam = urlParams.get('token') || "";
+
+    const cleanStr = (s) => String(s || '').toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const cleanSem = (s) => cleanStr(s).replace(/\s+/g, '').replace(/^s0/, 's');
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const modalEndEl = document.getElementById('confirmationEndModal');
+      if (modalEndEl && window.bootstrap) {
+        modalConfirmationEndInstance = new bootstrap.Modal(modalEndEl);
+      }
+    });
+
+    function initApp() {
+      structureMois.forEach(m => {
+        m.semaines.forEach(sem => disposGuide[sem.code] = null);
+        commentairesMois[m.id] = "";
+        commentairesValidesMois[m.id] = false;
+      });
+      
+      renderMonthsHTML();
+      chargerDonneesGoogleSheets();
+    }
+
+    function demarrerRemplissage() {
+      document.getElementById('start-btn').style.display = 'none';
+      
+      const card0 = document.getElementById('month-card-0');
+      if (card0) {
+        card0.classList.add('active');
+        moisOuvertEnEdition = 0;
+        configurerBoutonsGlobauxMois(0);
+        actualiserVerrouillageModifier();
+        actualiserVisibiliteBadgeRecap(0);
+        setTimeout(() => {
+          card0.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+
+      document.getElementById('save-btn').style.display = 'block';
+      actualiserEtatBouton();
+    }
+
+    function toggleListeSejoursRecap() {
+      const container = document.getElementById('sejours-list-container');
+      const btnToggle = document.getElementById('btn-toggle-sejours-list');
+      const btnEspace = document.getElementById('btn-espace-azimut-guide');
+      const textSpan = btnToggle.querySelector('span');
+
+      if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'flex';
+        if (textSpan) textSpan.textContent = 'Masquer le détail';
+        btnToggle.classList.add('open');
+        btnEspace.style.display = 'flex';
+      } else {
+        container.style.display = 'none';
+        if (textSpan) textSpan.textContent = 'Afficher le détail';
+        btnToggle.classList.remove('open');
+        btnEspace.style.display = 'none';
+      }
+    }
+
+    function estMoisCompletementRenseigne(indexMois) {
+      const mois = structureMois[indexMois];
+      return mois.semaines.every(sem => {
+        return sejoursAgence[sem.code] || (disposGuide[sem.code] !== null && disposGuide[sem.code] !== undefined);
+      });
+    }
+
+    function actualiserEtatValidationMois(indexMois) {
+      const btnValider = document.getElementById(`btn-next-${indexMois}`);
+      if (!btnValider) return;
+
+      const complet = estMoisCompletementRenseigne(indexMois);
+      if (complet) {
+        btnValider.classList.remove('btn-next-disabled');
+        masquerBulleMoisIncomplet(indexMois);
+      } else {
+        btnValider.classList.add('btn-next-disabled');
+      }
+    }
+
+    function actualiserVerrouillageModifier() {
+      structureMois.forEach((_, idx) => {
+        const btnEdit = document.getElementById(`btn-edit-${idx}`);
+        if (!btnEdit) return;
+
+        if (moisOuvertEnEdition !== null && moisOuvertEnEdition !== idx) {
+          btnEdit.disabled = true;
+        } else {
+          btnEdit.disabled = false;
+        }
+      });
+    }
+
+    function actualiserVisibiliteBadgeRecap(indexMois) {
+      const badge = document.getElementById(`badge-${indexMois}`);
+      if (!badge) return;
+
+      const body = document.getElementById(`month-body-${indexMois}`);
+      const isEditing = (body && body.style.display === 'block');
+
+      if (isEditing) {
+        badge.style.display = 'none';
+      } else {
+        badge.style.display = 'inline-block';
+      }
+    }
+
+    function genererTexteBadgeMois(m) {
+      let dispoCount = 0, occupeCount = 0, optionCount = 0, sejourCount = 0, nonRenseigneCount = 0;
+      
+      m.semaines.forEach(sem => {
+        if (sejoursAgence[sem.code]) {
+          const countS = sejoursAgence[sem.code].nbSejours || 1;
+          sejourCount += countS;
+        } else {
+          const st = disposGuide[sem.code];
+          if (st === "Disponible") dispoCount++;
+          else if (st === "Occupé") occupeCount++;
+          else if (st === "Option") optionCount++;
+          else nonRenseigneCount++;
+        }
+      });
+
+      const totalSemaines = m.semaines.length;
+
+      if (nonRenseigneCount > 0 && dispoCount === 0 && occupeCount === 0 && optionCount === 0 && sejourCount === 0) {
+        return "En attente";
+      }
+
+      const labelSejours = sejourCount > 1 ? `${sejourCount} séjours` : `1 séjour`;
+      
+      if (sejourCount >= totalSemaines) return labelSejours;
+      if (occupeCount === totalSemaines) return "🔴 Tout Indispo";
+      if (dispoCount === totalSemaines) return "🟢 Tout Dispo";
+
+      const elements = [];
+      if (sejourCount > 0) elements.push(labelSejours);
+      if (dispoCount > 0) elements.push(`${dispoCount} dispo`);
+      if (occupeCount > 0) elements.push(`${occupeCount} occupé`);
+      if (optionCount > 0) elements.push(`${optionCount} peut-être`);
+
+      return elements.length > 0 ? elements.join(", ") : "En attente";
+    }
+
+    function actualiserEtatBouton() {
+      const btn = document.getElementById('save-btn');
+      if (btn.disabled && btn.textContent.includes("En cours")) return;
+
+      const tousLesMoisCompletes = structureMois.every((_, idx) => {
+        const card = document.getElementById(`month-card-${idx}`);
+        return card && card.classList.contains('completed');
+      });
+
+      if (aDesDonneesEnregistrees) {
+        btn.style.display = 'block';
+        if (aDesModifications) {
+          btn.disabled = false;
+          btn.className = "btn-save ready";
+          btn.textContent = "💾 Enregistrer mes modifications";
+          masquerBulleSaveDisabled();
+        } else {
+          btn.disabled = true;
+          btn.className = "btn-save";
+          btn.textContent = "Aucune modification à enregistrer";
+        }
+      } else {
+        if (tousLesMoisCompletes) {
+          btn.disabled = false;
+          btn.className = "btn-save ready";
+          btn.textContent = "💾 Enregistrer mes disponibilités";
+          masquerBulleSaveDisabled();
+        } else {
+          btn.disabled = true;
+          btn.className = "btn-save";
+          btn.textContent = "Valide tous les mois pour pouvoir enregistrer";
+        }
+      }
+    }
+
+    function clicSurContainerBoutonEnregistrer(event) {
+      const btn = document.getElementById('save-btn');
+      if (btn && btn.disabled) {
+        afficherBulleSaveDisabled();
+      }
+    }
+
+    function afficherBulleSaveDisabled() {
+      const bubble = document.getElementById('save-disabled-bubble');
+      if (bubble) {
+        bubble.style.display = 'block';
+        clearTimeout(timerBulleSaveDisabled);
+        timerBulleSaveDisabled = setTimeout(() => {
+          bubble.style.display = 'none';
+        }, 3500);
+      }
+    }
+
+    function masquerBulleSaveDisabled() {
+      const bubble = document.getElementById('save-disabled-bubble');
+      if (bubble) bubble.style.display = 'none';
+    }
+
+    function actualiserRecap() {
+      let nbrDispo = 0, nbrOccupe = 0, nbrOption = 0, nbrSejour = 0;
+
+      Object.keys(disposGuide).forEach(semCode => {
+        if (sejoursAgence[semCode]) {
+          nbrSejour += sejoursAgence[semCode].nbSejours || 1;
+        } else {
+          const statut = disposGuide[semCode];
+          if (aDesDonneesEnregistrees) {
+            if (statut === "Disponible") nbrDispo++;
+            else if (statut === "Occupé") nbrOccupe++;
+            else if (statut === "Option") nbrOption++;
+          }
+        }
+      });
+
+      document.getElementById('count-dispo').textContent = nbrDispo;
+      document.getElementById('count-occupe').textContent = nbrOccupe;
+      document.getElementById('count-option').textContent = nbrOption;
+      document.getElementById('count-sejour').textContent = nbrSejour;
+
+      const summaryBox = document.getElementById('summary-section');
+      const topRow = document.getElementById('summary-top');
+      const bottomRow = document.getElementById('summary-bottom');
+      const disposSubtitle = document.getElementById('summary-dispos-subtitle');
+      const welcomeNotice = document.getElementById('welcome-notice');
+      const sejoursListContainer = document.getElementById('sejours-list-container');
+      const btnEspaceAzimut = document.getElementById('btn-espace-azimut-guide');
+
+      if (!aDesDonneesEnregistrees) {
+        welcomeNotice.style.display = 'block';
+        bottomRow.style.display = 'none';
+        disposSubtitle.style.display = 'none';
+
+        if (nbrSejour === 0) {
+          summaryBox.style.display = 'none';
+        } else {
+          summaryBox.style.display = 'block';
+        }
+      } else {
+        welcomeNotice.style.display = 'none';
+        summaryBox.style.display = 'block';
+        bottomRow.style.display = 'grid';
+        disposSubtitle.style.display = 'block';
+      }
+
+      if (nbrSejour > 0) {
+        topRow.style.display = 'block';
+        sejoursListContainer.innerHTML = '';
+
+        structureMois.forEach(m => {
+          m.semaines.forEach(sem => {
+            const sejour = sejoursAgence[sem.code];
+            if (sejour) {
+              const item = document.createElement('div');
+              item.className = 'sejour-item-recap';
+
+              const dateAffichage = sejour.date ? `Départ : ${sejour.date}` : `${m.nom} (${sem.code.split(' ')[0]})`;
+
+              item.innerHTML = `
+                <div class="sejour-nom-text">${sejour.nom}</div>
+                <div class="sejour-date-tag">${dateAffichage}</div>
+              `;
+              sejoursListContainer.appendChild(item);
+            }
+          });
+        });
+
+      } else {
+        topRow.style.display = 'none';
+        btnEspaceAzimut.style.display = 'none';
+      }
+    }
+
+    function renderMonthsHTML() {
+      const container = document.getElementById('months-wrapper');
+      container.innerHTML = '';
+
+      structureMois.forEach((m, index) => {
+        const card = document.createElement('div');
+        card.id = `month-card-${index}`;
+        card.className = `month-card`;
+
+        const nomMoisMinuscule = m.nom.toLowerCase();
+
+        card.innerHTML = `
+          <div class="month-header">
+            <div class="month-title">${m.nom}</div>
+            <div class="header-actions">
+              <span id="badge-${index}" class="status-pill">En attente</span>
+              <button id="btn-edit-${index}" class="btn-edit" onclick="clicBoutonEditer(${index})">✏️ Modifier</button>
+            </div>
+          </div>
+
+          <div id="month-body-${index}" class="month-body">
+            <div id="month-choices-top-${index}" class="month-choices-top">
+              <button id="btn-choice-occupe-${index}" class="btn-month-choice occupe" onclick="choixGlobalMois(${index}, 'Occupé')">Indisponible tout le mois</button>
+              <button id="btn-choice-dispo-${index}" class="btn-month-choice dispo" onclick="choixGlobalMois(${index}, 'Disponible')">Disponible tout le mois</button>
+            </div>
+            
+            <div id="month-choices-bottom-${index}" class="month-choices-bottom">
+              <button id="btn-choice-custom-${index}" class="btn-month-choice btn-custom" onclick="ouvrirDetailMois(${index})">Ajuster semaine par semaine</button>
+            </div>
+
+            <div id="detail-${index}" class="weeks-detail">
+              <div class="grid-weeks" id="grid-${index}"></div>
+            </div>
+
+            <button id="btn-toggle-com-${m.id}" class="comment-toggle-btn" onclick="toggleOuSupprimerCommentaire('${m.id}')">💬 Ajouter une remarque pour ${nomMoisMinuscule}</button>
+            
+            <div id="comment-box-${m.id}" class="comment-container">
+              <div class="comment-row">
+                <textarea id="comment-${m.id}" class="comment-textarea" placeholder="Ex: Disponible seulement à partir du 15, préférences stages..." oninput="saisieCommentaire('${m.id}', this.value)"></textarea>
+                <button id="btn-action-com-${m.id}" class="btn-action-comment" onclick="actionBoutonCommentaire('${m.id}')" disabled>Valider ↵</button>
+              </div>
+            </div>
+
+            <div id="wrapper-next-${index}" class="next-btn-wrapper">
+              <div id="bubble-incomplet-${index}" class="incomplet-tooltip-bubble" style="display: none;">
+                Merci de renseigner toutes tes disponibilités pour valider ce mois.
+              </div>
+              <button id="btn-next-${index}" class="btn-next btn-next-disabled" onclick="validerEtSuivant(${index})">Valider ${m.nom} →</button>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function toggleOuSupprimerCommentaire(moisId) {
+      const box = document.getElementById(`comment-box-${moisId}`);
+      const btnToggle = document.getElementById(`btn-toggle-com-${moisId}`);
+      const txtArea = document.getElementById(`comment-${moisId}`);
+      const btnAction = document.getElementById(`btn-action-com-${moisId}`);
+      const mois = structureMois.find(m => m.id === moisId);
+      const nomMoisMinuscule = mois ? mois.nom.toLowerCase() : "";
+
+      const estOuvertOuRenseigne = box.classList.contains('open');
+
+      if (!estOuvertOuRenseigne) {
+        box.classList.add('open');
+        btnToggle.textContent = `🗑️ Supprimer ma remarque`;
+        if (txtArea && !txtArea.disabled) txtArea.focus();
+      } else {
+        commentairesMois[moisId] = "";
+        commentairesValidesMois[moisId] = false;
+
+        if (txtArea) {
+          txtArea.value = "";
+          txtArea.disabled = false;
+        }
+
+        if (btnAction) {
+          btnAction.textContent = 'Valider ↵';
+          btnAction.disabled = true;
+          btnAction.classList.remove('validated-mode');
+        }
+
+        box.classList.remove('open');
+        btnToggle.textContent = `💬 Ajouter une remarque pour ${nomMoisMinuscule}`;
+
+        aDesModifications = true;
+        actualiserRecap();
+        actualiserEtatBouton();
+      }
+    }
+
+    function saisieCommentaire(moisId, texte) {
+      commentairesMois[moisId] = texte;
+      const btnAction = document.getElementById(`btn-action-com-${moisId}`);
+
+      if (btnAction && !commentairesValidesMois[moisId]) {
+        btnAction.disabled = (texte.trim() === "");
+      }
+
+      aDesModifications = true;
+      actualiserRecap();
+      actualiserEtatBouton();
+    }
+
+    function actionBoutonCommentaire(moisId) {
+      const txtArea = document.getElementById(`comment-${moisId}`);
+      const btnAction = document.getElementById(`btn-action-com-${moisId}`);
+      const estActuellementValide = commentairesValidesMois[moisId];
+
+      if (!estActuellementValide) {
+        if (!txtArea || txtArea.value.trim() === "") return;
+
+        commentairesValidesMois[moisId] = true;
+        txtArea.disabled = true;
+
+        if (btnAction) {
+          btnAction.textContent = '✏️ Modifier';
+          btnAction.disabled = false;
+          btnAction.classList.add('validated-mode');
+        }
+      } else {
+        commentairesValidesMois[moisId] = false;
+        if (txtArea) {
+          txtArea.disabled = false;
+          txtArea.focus();
+        }
+
+        if (btnAction) {
+          btnAction.textContent = 'Valider ↵';
+          btnAction.disabled = (txtArea.value.trim() === "");
+          btnAction.classList.remove('validated-mode');
+        }
+      }
+
+      aDesModifications = true;
+      actualiserRecap();
+      actualiserEtatBouton();
+    }
+
+    function reinitialiserClassesBoutonsGlooobaux(indexMois) {
+      const btnOccupe = document.getElementById(`btn-choice-occupe-${indexMois}`);
+      const btnDispo = document.getElementById(`btn-choice-dispo-${indexMois}`);
+      const btnCustom = document.getElementById(`btn-choice-custom-${indexMois}`);
+
+      if (btnOccupe) btnOccupe.classList.remove('selected-occupe');
+      if (btnDispo) btnDispo.classList.remove('selected-dispo');
+      if (btnCustom) btnCustom.classList.remove('selected-custom');
+    }
+
+    function choixGlobalMois(indexMois, statut) {
+      const mois = structureMois[indexMois];
+      
+      const aUnSejour = mois.semaines.some(sem => sejoursAgence[sem.code]);
+      if (aUnSejour) return;
+
+      mois.semaines.forEach(sem => {
+        disposGuide[sem.code] = statut;
+      });
+
+      aDesModifications = true;
+
+      document.getElementById(`detail-${indexMois}`).classList.remove('open');
+
+      reinitialiserClassesBoutonsGlooobaux(indexMois);
+      if (statut === 'Occupé') {
+        document.getElementById(`btn-choice-occupe-${indexMois}`)?.classList.add('selected-occupe');
+      } else if (statut === 'Disponible') {
+        document.getElementById(`btn-choice-dispo-${indexMois}`)?.classList.add('selected-dispo');
+      }
+
+      const badge = document.getElementById(`badge-${indexMois}`);
+      if (badge) {
+        badge.textContent = genererTexteBadgeMois(mois);
+      }
+
+      actualiserEtatValidationMois(indexMois);
+      actualiserRecap();
+      actualiserEtatBouton();
+    }
+
+    function ouvrirDetailMois(indexMois) {
+      document.getElementById(`detail-${indexMois}`).classList.add('open');
+      renderGridSemaines(indexMois);
+
+      reinitialiserClassesBoutonsGlooobaux(indexMois);
+      const btnCustom = document.getElementById(`btn-choice-custom-${indexMois}`);
+      if (btnCustom) btnCustom.classList.add('selected-custom');
+
+      actualiserEtatValidationMois(indexMois);
+
+      setTimeout(() => {
+        document.getElementById(`detail-${indexMois}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+
+    function renderGridSemaines(indexMois) {
+      const mois = structureMois[indexMois];
+      const grid = document.getElementById(`grid-${indexMois}`);
+      grid.innerHTML = '';
+
+      mois.semaines.forEach(sem => {
+        const sejour = sejoursAgence[sem.code];
+        const div = document.createElement('div');
+
+        if (sejour) {
+          div.className = `week-card sejour-engagé`;
+          
+          const mentionDate = sejour.date ? ` (${sejour.date})` : '';
+          const labelSejourPrincipal = sejour.nbSejours > 1 
+            ? `🔒 ${sejour.nbSejours} séjours attribués${mentionDate}`
+            : `🔒 1 séjour attribué${mentionDate}`;
+
+          div.innerHTML = `
+            <div class="week-title">
+              ${sem.label}<span class="info-bubble-trigger" data-tooltip="Si le séjour débute un dimanche, il est affiché sur la semaine suivante">?</span>
+            </div>
+            <div class="sejour-badge-locked">
+              <span class="sejour-text-main">${labelSejourPrincipal}</span>
+              <span class="sejour-text-sub" data-tooltip="Les semaines avec des séjours attribués ne sont pas modifiables : contacte Azimut s'il y a une erreur ou un problème !">
+                <span>Non modifiable</span>
+                <svg class="sejour-icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              </span>
+            </div>
+          `;
+        } else {
+          const statut = disposGuide[sem.code];
+          const classStatut = statut ? statut.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") : "";
+
+          div.className = `week-card ${classStatut}`;
+          div.innerHTML = `
+            <div class="week-title">${sem.label}</div>
+            <div class="status-options">
+              <button class="opt-btn" data-type="Disponible" onclick="setSemaineStatut('${sem.code}', 'Disponible', ${indexMois})">Dispo</button>
+              <button class="opt-btn" data-type="Occupé" onclick="setSemaineStatut('${sem.code}', 'Occupé', ${indexMois})">Occupé</button>
+              <button class="opt-btn" data-type="Option" onclick="setSemaineStatut('${sem.code}', 'Option', ${indexMois})">Peut-être</button>
+            </div>
+          `;
+        }
+
+        grid.appendChild(div);
+      });
+    }
+
+    function setSemaineStatut(semaineCode, statut, indexMois) {
+      if (sejoursAgence[semaineCode]) return;
+      disposGuide[semaineCode] = statut;
+      aDesModifications = true;
+      renderGridSemaines(indexMois);
+      actualiserEtatValidationMois(indexMois);
+      actualiserRecap();
+      actualiserEtatBouton();
+    }
+
+    function afficherBulleMoisIncomplet(indexMois) {
+      masquerToutesLesBullesIncomplets();
+      const bubble = document.getElementById(`bubble-incomplet-${indexMois}`);
+      if (bubble) {
+        bubble.style.display = 'block';
+        clearTimeout(timerBulleIncomplet);
+        timerBulleIncomplet = setTimeout(() => {
+          bubble.style.display = 'none';
+        }, 3500);
+      }
+    }
+
+    function masquerBulleMoisIncomplet(indexMois) {
+      const bubble = document.getElementById(`bubble-incomplet-${indexMois}`);
+      if (bubble) bubble.style.display = 'none';
+    }
+
+    function masquerToutesLesBullesIncomplets() {
+      structureMois.forEach((_, idx) => masquerBulleMoisIncomplet(idx));
+    }
+
+    function validerEtSuivant(indexMois) {
+      if (!estMoisCompletementRenseigne(indexMois)) {
+        afficherBulleMoisIncomplet(indexMois);
+        return;
+      }
+
+      masquerBulleMoisIncomplet(indexMois);
+      const mois = structureMois[indexMois];
+      aDesModifications = true;
+      
+      const résuméText = genererTexteBadgeMois(mois);
+
+      marquerMoisTermine(indexMois, résuméText);
+      debloquerMoisSuivant(indexMois);
+      actualiserRecap();
+      actualiserEtatBouton();
+    }
+
+    function marquerMoisTermine(indexMois, texteBadge) {
+      const card = document.getElementById(`month-card-${indexMois}`);
+      if (card) card.classList.add('completed');
+      
+      const body = document.getElementById(`month-body-${indexMois}`);
+      if (body) body.style.display = 'none';
+
+      actualiserVisibiliteBadgeRecap(indexMois);
+
+      const badge = document.getElementById(`badge-${indexMois}`);
+      if (badge) {
+        badge.textContent = texteBadge;
+
+        if (texteBadge.includes('séjour')) {
+          badge.style.color = '#1e40af';
+          badge.style.background = '#eff6ff';
+        } else {
+          badge.style.color = '#15803d';
+          badge.style.background = '#dcfce7';
+        }
+      }
+
+      const btnEdit = document.getElementById(`btn-edit-${indexMois}`);
+      if (btnEdit) {
+        btnEdit.style.display = 'inline-block';
+        btnEdit.textContent = '✏️ Modifier';
+      }
+
+      if (moisOuvertEnEdition === indexMois) {
+        moisOuvertEnEdition = null;
+      }
+
+      actualiserVerrouillageModifier();
+    }
+
+    function clicBoutonEditer(indexMois) {
+      if (moisOuvertEnEdition !== null && moisOuvertEnEdition !== indexMois) {
+        return; 
+      }
+
+      const body = document.getElementById(`month-body-${indexMois}`);
+      const isCurrentlyOpen = (body && body.style.display === 'block');
+
+      if (isCurrentlyOpen) {
+        fermerMoisSansModifier(indexMois);
+      } else {
+        rouvrirMois(indexMois);
+      }
+    }
+
+    function fermerMoisSansModifier(indexMois) {
+      const mois = structureMois[indexMois];
+      const résuméText = genererTexteBadgeMois(mois);
+      marquerMoisTermine(indexMois, résuméText);
+    }
+
+    function rouvrirMois(indexMois) {
+      moisOuvertEnEdition = indexMois;
+
+      const body = document.getElementById(`month-body-${indexMois}`);
+      body.style.display = 'block';
+
+      actualiserVisibiliteBadgeRecap(indexMois);
+
+      const btnEdit = document.getElementById(`btn-edit-${indexMois}`);
+      if (btnEdit) {
+        btnEdit.style.display = 'inline-block';
+        btnEdit.textContent = 'Annuler';
+      }
+      
+      const card = document.getElementById(`month-card-${indexMois}`);
+      if (card) card.classList.remove('completed');
+
+      configurerBoutonsGlobauxMois(indexMois);
+      actualiserEtatValidationMois(indexMois);
+      actualiserVerrouillageModifier();
+      actualiserEtatBouton();
+    }
+
+    function configurerBoutonsGlobauxMois(indexMois) {
+      const mois = structureMois[indexMois];
+      const aUnSejour = mois.semaines.some(sem => sejoursAgence[sem.code]);
+
+      const choicesTopContainer = document.getElementById(`month-choices-top-${indexMois}`);
+      const choicesBottomContainer = document.getElementById(`month-choices-bottom-${indexMois}`);
+      const btnCustom = document.getElementById(`btn-choice-custom-${indexMois}`);
+
+      if (aUnSejour) {
+        if (choicesTopContainer) choicesTopContainer.style.display = 'none';
+        if (choicesBottomContainer) choicesBottomContainer.style.display = 'none';
+
+        reinitialiserClassesBoutonsGlooobaux(indexMois);
+        if (btnCustom) btnCustom.classList.add('selected-custom');
+        ouvrirDetailMois(indexMois);
+
+      } else {
+        if (choicesTopContainer) choicesTopContainer.style.display = 'grid';
+        if (choicesBottomContainer) choicesBottomContainer.style.display = 'flex';
+
+        reinitialiserClassesBoutonsGlooobaux(indexMois);
+
+        let dispoCount = 0, occupeCount = 0, totalSemaines = mois.semaines.length;
+        let nonRenseigneCount = 0;
+
+        mois.semaines.forEach(sem => {
+          const s = disposGuide[sem.code];
+          if (s === "Disponible") dispoCount++;
+          else if (s === "Occupé") occupeCount++;
+          else if (!s) nonRenseigneCount++;
+        });
+
+        const btnOccupe = document.getElementById(`btn-choice-occupe-${indexMois}`);
+        const btnDispo = document.getElementById(`btn-choice-dispo-${indexMois}`);
+
+        if (nonRenseigneCount === totalSemaines) {
+          document.getElementById(`detail-${indexMois}`).classList.remove('open');
+        } else if (occupeCount === totalSemaines) {
+          if (btnOccupe) btnOccupe.classList.add('selected-occupe');
+          document.getElementById(`detail-${indexMois}`).classList.remove('open');
+        } else if (dispoCount === totalSemaines) {
+          if (btnDispo) btnDispo.classList.add('selected-dispo');
+          document.getElementById(`detail-${indexMois}`).classList.remove('open');
+        } else {
+          if (btnCustom) btnCustom.classList.add('selected-custom');
+          ouvrirDetailMois(indexMois);
+        }
+      }
+
+      actualiserEtatValidationMois(indexMois);
+    }
+
+    function debloquerMoisSuivant(indexMois) {
+      const indexSuivant = indexMois + 1;
+
+      if (indexSuivant < structureMois.length) {
+        const cardSuivante = document.getElementById(`month-card-${indexSuivant}`);
+        if (cardSuivante) {
+          cardSuivante.classList.add('active');
+          configurerBoutonsGlobauxMois(indexSuivant);
+          moisOuvertEnEdition = null;
+          actualiserVerrouillageModifier();
+          setTimeout(() => {
+            cardSuivante.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 120);
+        }
+      } else {
+        moisOuvertEnEdition = null;
+        actualiserVerrouillageModifier();
+        if (modalConfirmationEndInstance) {
+          modalConfirmationEndInstance.show();
+        } else {
+          scrollerEtMettreEnValeurBoutonSave();
+        }
+      }
+    }
+
+    function fermerModalEtScroller() {
+      if (modalConfirmationEndInstance) {
+        modalConfirmationEndInstance.hide();
+      }
+      setTimeout(() => {
+        scrollerEtMettreEnValeurBoutonSave();
+      }, 200);
+    }
+
+    function scrollerEtMettreEnValeurBoutonSave() {
+      const btnSave = document.getElementById('save-btn');
+      if (!btnSave) return;
+
+      document.body.classList.add('selection-finished');
+
+      btnSave.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btnSave.classList.add('highlight-pulse');
+
+      if (!ecouteurPremierClicPostPopin) {
+        ecouteurPremierClicPostPopin = true;
+        const reinitialiserSurlignageEtGriser = () => {
+          btnSave.classList.remove('highlight-pulse');
+          document.body.classList.remove('selection-finished');
+          window.removeEventListener('click', reinitialiserSurlignageEtGriser, true);
+          ecouteurPremierClicPostPopin = false;
+        };
+        setTimeout(() => {
+          window.addEventListener('click', reinitialiserSurlignageEtGriser, true);
+        }, 100);
+      }
+    }
+
+    // CHARGEMENT VIA GOOGLE APPS SCRIPT
+    async function chargerDonneesGoogleSheets() {
+      if (!guideTokenParam) {
+        document.getElementById('guide-info').innerHTML = '<span class="guide-label">Accès :</span> <span class="guide-name">Refusé</span>';
+        document.getElementById('months-wrapper').style.display = 'none';
+        document.getElementById('save-btn').style.display = 'none';
+        document.getElementById('summary-section').style.display = 'none';
+        document.getElementById('welcome-notice').style.display = 'none';
+        document.getElementById('start-btn').style.display = 'none';
+        afficherMessage("⛔ Lien invalide ou expiré. L'accès nécessite un token individuel sécurisé.", "error");
+        return;
+      }
+
+      try {
+        const response = await fetch(`${APPS_SCRIPT_URL}?action=getGuideData&token=${encodeURIComponent(guideTokenParam)}`);
+        const result = await response.json();
+
+        if (result.status !== "success") {
+          document.getElementById('guide-info').innerHTML = '<span class="guide-label">Accès :</span> <span class="guide-name">Refusé</span>';
+          document.getElementById('months-wrapper').style.display = 'none';
+          document.getElementById('save-btn').style.display = 'none';
+          document.getElementById('summary-section').style.display = 'none';
+          document.getElementById('welcome-notice').style.display = 'none';
+          document.getElementById('start-btn').style.display = 'none';
+          afficherMessage("⛔ Lien invalide ou expiré. L'accès nécessite un token individuel sécurisé.", "error");
+          return;
+        }
+
+        const nomGuideCherche = result.guideName;
+        document.getElementById('guide-info').innerHTML = `
+          <span class="status-dot"></span>
+          <span class="guide-label">Guide :</span>
+          <span class="guide-name">${nomGuideCherche}</span>
+        `;
+
+        let aAussiDesDisposAuteursGuide = false;
+
+        if (result.dispos && result.dispos.length > 0) {
+          result.dispos.forEach(row => {
+            const valSemaine = row.semaine;
+            const valStatut = row.statut;
+            const sejourVal = row.sejour;
+            const dateDepartVal = row.dateDepart;
+            const comVal = row.commentaire;
+
+            if (valSemaine) {
+              const semNormaliseeRow = cleanSem(valSemaine);
+              
+              structureMois.forEach(m => {
+                m.semaines.forEach(semStructure => {
+                  if (cleanSem(semStructure.code) === semNormaliseeRow) {
+                    if (sejourVal && sejourVal.trim() !== "") {
+                      const estMultiple = sejourVal.includes(" / ");
+                      const nbSejours = estMultiple ? sejourVal.split(" / ").length : 1;
+
+                      sejoursAgence[semStructure.code] = {
+                        nom: sejourVal,
+                        date: dateDepartVal || "",
+                        nbSejours: nbSejours
+                      };
+                    } else if (valStatut) {
+                      disposGuide[semStructure.code] = valStatut;
+                      aAussiDesDisposAuteursGuide = true;
+                    }
+
+                    if (comVal && comVal.trim() !== "") {
+                      commentairesMois[m.id] = comVal;
+                      commentairesValidesMois[m.id] = true;
+                      const txtArea = document.getElementById(`comment-${m.id}`);
+                      const box = document.getElementById(`comment-box-${m.id}`);
+                      const btnAction = document.getElementById(`btn-action-com-${m.id}`);
+                      const btnToggle = document.getElementById(`btn-toggle-com-${m.id}`);
+
+                      if (txtArea) {
+                        txtArea.value = comVal;
+                        txtArea.disabled = true;
+                      }
+                      if (btnAction) {
+                        btnAction.textContent = '✏️ Modifier';
+                        btnAction.disabled = false;
+                        btnAction.classList.add('validated-mode');
+                      }
+                      if (btnToggle) btnToggle.textContent = '🗑️ Supprimer ma remarque';
+                      if (box) box.classList.add('open');
+                    }
+                  }
+                });
+              });
+            }
+          });
+        }
+
+        if (aAussiDesDisposAuteursGuide) {
+          aDesDonneesEnregistrees = true;
+          document.getElementById('start-btn').style.display = 'none';
+          document.getElementById('save-btn').style.display = 'block';
+          restaurerAffichageMois();
+          actualiserRecap();
+          afficherMessage("ℹ️ Tes disponibilités enregistrées ont été chargées. Tu peux les modifier et valider tes changements à tout moment.", "success");
+        } else {
+          aDesDonneesEnregistrees = false;
+          reinitialiserProgressionVierge();
+          actualiserRecap();
+        }
+
+        actualiserVerrouillageModifier();
+        actualiserEtatBouton();
+
+      } catch (err) {
+        console.error("Erreur de lecture Google Sheets :", err);
+        afficherMessage("Erreur de connexion au serveur.", "error");
+      }
+    }
+
+    function reinitialiserProgressionVierge() {
+      document.getElementById('start-btn').style.display = 'block';
+      document.getElementById('save-btn').style.display = 'none';
+      moisOuvertEnEdition = null;
+
+      structureMois.forEach((_, index) => {
+        const card = document.getElementById(`month-card-${index}`);
+        if (card) {
+          card.classList.remove('active');
+          card.classList.remove('completed');
+        }
+        
+        const body = document.getElementById(`month-body-${index}`);
+        if (body) body.style.display = 'block';
+
+        actualiserVisibiliteBadgeRecap(index);
+
+        const badge = document.getElementById(`badge-${index}`);
+        if (badge) {
+          badge.textContent = 'En attente';
+          badge.style.background = '#f1f5f9';
+          badge.style.color = '#64748b';
+        }
+
+        const btnEdit = document.getElementById(`btn-edit-${index}`);
+        if (btnEdit) btnEdit.style.display = 'none';
+      });
+    }
+
+    function restaurerAffichageMois() {
+      structureMois.forEach((m, index) => {
+        const résuméText = genererTexteBadgeMois(m);
+        
+        const card = document.getElementById(`month-card-${index}`);
+        if (card) {
+          card.classList.add('active');
+          marquerMoisTermine(index, résuméText);
+        }
+      });
+    }
+
+    // ENREGISTREMENT VIA GOOGLE APPS SCRIPT
+    async function enregistrerDispos() {
+      const btn = document.getElementById('save-btn');
+      const overlay = document.getElementById('loading-overlay');
+
+      overlay.classList.add('active');
+      btn.disabled = true;
+      btn.classList.remove('highlight-pulse');
+
+      try {
+        const payloadDispos = [];
+
+        structureMois.forEach(mois => {
+          const comMois = commentairesMois[mois.id] || "";
+
+          mois.semaines.forEach(sem => {
+            if (!sejoursAgence[sem.code]) {
+              payloadDispos.push({
+                semaine: sem.code,
+                statut: disposGuide[sem.code] || "Disponible",
+                commentaire: comMois
+              });
+            }
+          });
+        });
+
+        const postBody = {
+          action: "saveDisposGuide",
+          token: guideTokenParam,
+          dispos: payloadDispos
+        };
+
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(postBody)
+        });
+
+        const result = await response.json();
+
+        if (result.status !== "success") {
+          overlay.classList.remove('active');
+          afficherMessage("Erreur d'enregistrement : " + (result.message || "Erreur serveur"), "error");
+          btn.disabled = false;
+          actualiserEtatBouton();
+          return;
+        }
+
+        aDesModifications = false;
+        aDesDonneesEnregistrees = true;
+        overlay.classList.remove('active');
+
+        actualiserRecap();
+        
+        btn.className = "btn-save success-state";
+        btn.textContent = "✓ Disponibilités enregistrées";
+        afficherMessage(`✓ Tes disponibilités et tes remarques ont été enregistrées avec succès ! Tu peux modifier tes choix à tout moment depuis ce même lien.`, "success");
+
+        const summaryBox = document.getElementById('summary-section');
+        setTimeout(() => {
+          summaryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+
+      } catch (err) {
+        console.error("Erreur enregistrement :", err);
+        overlay.classList.remove('active');
+        afficherMessage("Erreur réseau lors de l'enregistrement.", "error");
+        actualiserEtatBouton();
+      }
+    }
+
+    function afficherMessage(txt, type) {
+      const b = document.getElementById('banner');
+      b.textContent = txt;
+      b.className = `status-banner ${type}`;
+    }
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>
