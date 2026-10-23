@@ -162,6 +162,25 @@
       margin-top: 10px;
     }
 
+    .welcome-more-content {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .btn-toggle-welcome {
+      background: transparent;
+      border: none;
+      color: #0284c7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 0 0 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: underline;
+    }
+
     .summary-box {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -385,6 +404,7 @@
       scroll-margin-top: 16px;
       width: 100%;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     .month-card.active { display: block; }
@@ -863,36 +883,17 @@
       border-color: #0f172a transparent transparent transparent;
     }
 
-    .save-disabled-bubble {
-      position: absolute;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #0f172a;
-      color: #ffffff;
-      padding: 10px 14px;
+    .reminder-card-banner {
+      background-color: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+      padding: 8px 12px;
       border-radius: 8px;
       font-size: 0.8rem;
-      font-weight: 500;
-      line-height: 1.4;
-      white-space: normal;
-      width: 280px;
-      max-width: 90vw;
-      text-align: center;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
       animation: fadeInTooltip 0.2s ease-out;
-    }
-
-    .save-disabled-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 5px;
-      border-style: solid;
-      border-color: #0f172a transparent transparent transparent;
     }
 
     @keyframes fadeInTooltip {
@@ -908,11 +909,14 @@
       font-size: 0.9rem;
       font-weight: 600;
       border: none;
-      cursor: not-allowed;
-      background-color: #cbd5e1;
-      color: #64748b;
       margin-top: 0;
       transition: all 0.3s ease;
+    }
+
+    .btn-save.btn-disabled {
+      background-color: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed;
     }
 
     .btn-save.ready {
@@ -1120,9 +1124,16 @@
     </header>
 
     <div id="welcome-notice" class="welcome-notice" style="display: none;">
-      <p>Hello ✌️ Cet outil te permet de renseigner tes dispos pour la saison avec Azimut.</p>
-      <p>Grâce aux périodes renseignées, on constitue notre planning guides. Avant de t'attribuer des séjours sur tes semaines "Dispo", on te contactera pour être sûr que tout est bon pour toi !</p>
-      <p>ℹ️ Ce formulaire est personnel : toi seul y as accès, et tu pourras revenir modifier tes choix à tout moment !</p>
+      <p id="welcome-text-short">Hello ✌️ Cet outil te permet de renseigner tes dispos pour la saison avec Azimut.</p>
+      
+      <div id="welcome-more-content" class="welcome-more-content" style="display: block;">
+        <p>Grâce aux périodes renseignées, on constitue notre planning guides. Avant de t'attribuer des séjours sur tes semaines "Dispo", on te contactera pour être sûr que tout est bon pour toi !</p>
+        <p>ℹ️ Ce formulaire est personnel : toi seul y as accès, et tu pourras revenir modifier tes choix à tout moment !</p>
+      </div>
+
+      <button id="btn-toggle-welcome" class="btn-toggle-welcome" onclick="toggleTexteAccueil()" style="display: none;">
+        <span id="label-toggle-welcome">Masquer les détails ▴</span>
+      </button>
     </div>
 
     <!-- BLOC RÉCAPITULATIF -->
@@ -1180,11 +1191,8 @@
 
     <main id="months-wrapper"></main>
 
-    <div class="save-btn-wrapper" onclick="clicSurContainerBoutonEnregistrer(event)">
-      <div id="save-disabled-bubble" class="save-disabled-bubble" style="display: none;">
-        Merci de renseigner tes dispos sur tous les mois de cet hiver avant d'enregistrer !
-      </div>
-      <button id="save-btn" class="btn-save" onclick="enregistrerDispos()" disabled>Valide tous les mois pour pouvoir enregistrer</button>
+    <div class="save-btn-wrapper">
+      <button id="save-btn" class="btn-save btn-disabled" onclick="handleClicEnregistrer()">Valide tous les mois pour pouvoir enregistrer</button>
     </div>
   </div>
 
@@ -1233,10 +1241,11 @@
     let moisOuvertEnEdition = null; 
     let aDesModifications = false;
     let aDesDonneesEnregistrees = false;
+    let aEteAvertiSauvegarde = false;
     let modalConfirmationEndInstance = null;
     let ecouteurPremierClicPostPopin = false;
     let timerBulleIncomplet = null;
-    let timerBulleSaveDisabled = null;
+    let estBoutonSauvegardePret = false;
 
     const urlParams = new URLSearchParams(window.location.search);
     const guideTokenParam = urlParams.get('token') || "";
@@ -1279,6 +1288,19 @@
 
       document.getElementById('save-btn').style.display = 'block';
       actualiserEtatBouton();
+    }
+
+    function toggleTexteAccueil() {
+      const moreContent = document.getElementById('welcome-more-content');
+      const btnLabel = document.getElementById('label-toggle-welcome');
+
+      if (moreContent.style.display === 'none' || moreContent.style.display === '') {
+        moreContent.style.display = 'block';
+        if (btnLabel) btnLabel.textContent = 'Masquer les détails ▴';
+      } else {
+        moreContent.style.display = 'none';
+        if (btnLabel) btnLabel.textContent = 'Lire la suite ▾';
+      }
     }
 
     function toggleListeSejoursRecap() {
@@ -1386,7 +1408,7 @@
 
     function actualiserEtatBouton() {
       const btn = document.getElementById('save-btn');
-      if (btn.disabled && btn.textContent.includes("En cours")) return;
+      if (!btn) return;
 
       const tousLesMoisCompletes = structureMois.every((_, idx) => {
         const card = document.getElementById(`month-card-${idx}`);
@@ -1396,50 +1418,31 @@
       if (aDesDonneesEnregistrees) {
         btn.style.display = 'block';
         if (aDesModifications) {
-          btn.disabled = false;
+          estBoutonSauvegardePret = true;
           btn.className = "btn-save ready";
           btn.textContent = "💾 Enregistrer mes modifications";
-          masquerBulleSaveDisabled();
         } else {
-          btn.disabled = true;
-          btn.className = "btn-save";
+          estBoutonSauvegardePret = false;
+          btn.className = "btn-save btn-disabled";
           btn.textContent = "Aucune modification à enregistrer";
         }
       } else {
         if (tousLesMoisCompletes) {
-          btn.disabled = false;
+          estBoutonSauvegardePret = true;
           btn.className = "btn-save ready";
           btn.textContent = "💾 Enregistrer mes disponibilités";
-          masquerBulleSaveDisabled();
         } else {
-          btn.disabled = true;
-          btn.className = "btn-save";
+          estBoutonSauvegardePret = false;
+          btn.className = "btn-save btn-disabled";
           btn.textContent = "Valide tous les mois pour pouvoir enregistrer";
         }
       }
     }
 
-    function clicSurContainerBoutonEnregistrer(event) {
-      const btn = document.getElementById('save-btn');
-      if (btn && btn.disabled) {
-        afficherBulleSaveDisabled();
+    function handleClicEnregistrer() {
+      if (estBoutonSauvegardePret) {
+        enregistrerDispos();
       }
-    }
-
-    function afficherBulleSaveDisabled() {
-      const bubble = document.getElementById('save-disabled-bubble');
-      if (bubble) {
-        bubble.style.display = 'block';
-        clearTimeout(timerBulleSaveDisabled);
-        timerBulleSaveDisabled = setTimeout(() => {
-          bubble.style.display = 'none';
-        }, 3500);
-      }
-    }
-
-    function masquerBulleSaveDisabled() {
-      const bubble = document.getElementById('save-disabled-bubble');
-      if (bubble) bubble.style.display = 'none';
     }
 
     function actualiserRecap() {
@@ -1468,11 +1471,16 @@
       const bottomRow = document.getElementById('summary-bottom');
       const disposSubtitle = document.getElementById('summary-dispos-subtitle');
       const welcomeNotice = document.getElementById('welcome-notice');
+      const welcomeMore = document.getElementById('welcome-more-content');
+      const btnToggleWelcome = document.getElementById('btn-toggle-welcome');
+      const btnLabelWelcome = document.getElementById('label-toggle-welcome');
       const sejoursListContainer = document.getElementById('sejours-list-container');
       const btnEspaceAzimut = document.getElementById('btn-espace-azimut-guide');
 
       if (!aDesDonneesEnregistrees) {
         welcomeNotice.style.display = 'block';
+        welcomeMore.style.display = 'block';
+        btnToggleWelcome.style.display = 'none';
         bottomRow.style.display = 'none';
         disposSubtitle.style.display = 'none';
 
@@ -1482,7 +1490,11 @@
           summaryBox.style.display = 'block';
         }
       } else {
-        welcomeNotice.style.display = 'none';
+        welcomeNotice.style.display = 'block';
+        welcomeMore.style.display = 'none';
+        btnToggleWelcome.style.display = 'inline-flex';
+        if (btnLabelWelcome) btnLabelWelcome.textContent = 'Lire la suite ▾';
+
         summaryBox.style.display = 'block';
         bottomRow.style.display = 'grid';
         disposSubtitle.style.display = 'block';
@@ -1534,6 +1546,10 @@
               <span id="badge-${index}" class="status-pill">En attente</span>
               <button id="btn-edit-${index}" class="btn-edit" onclick="clicBoutonEditer(${index})">✏️ Modifier</button>
             </div>
+          </div>
+
+          <div id="reminder-card-banner-${index}" class="reminder-card-banner">
+            💡 Pour sauvegarder tes nouvelles dispos, n'oublie pas de cliquer sur « Enregistrer mes modifications » tout en bas !
           </div>
 
           <div id="month-body-${index}" class="month-body">
@@ -1807,6 +1823,17 @@
       const résuméText = genererTexteBadgeMois(mois);
 
       marquerMoisTermine(indexMois, résuméText);
+
+      if (aDesDonneesEnregistrees && !aEteAvertiSauvegarde) {
+        aEteAvertiSauvegarde = true;
+
+        const banner = document.getElementById(`reminder-card-banner-${indexMois}`);
+        if (banner) {
+          banner.style.display = 'block';
+          setTimeout(() => { banner.style.display = 'none'; }, 6000);
+        }
+      }
+
       debloquerMoisSuivant(indexMois);
       actualiserRecap();
       actualiserEtatBouton();
@@ -1960,7 +1987,8 @@
       } else {
         moisOuvertEnEdition = null;
         actualiserVerrouillageModifier();
-        if (modalConfirmationEndInstance) {
+        
+        if (!aDesDonneesEnregistrees && modalConfirmationEndInstance) {
           modalConfirmationEndInstance.show();
         } else {
           scrollerEtMettreEnValeurBoutonSave();
@@ -2092,6 +2120,8 @@
           });
         }
 
+        aEteAvertiSauvegarde = false;
+
         if (aAussiDesDisposAuteursGuide) {
           aDesDonneesEnregistrees = true;
           document.getElementById('start-btn').style.display = 'none';
@@ -2161,7 +2191,7 @@
       const overlay = document.getElementById('loading-overlay');
 
       overlay.classList.add('active');
-      btn.disabled = true;
+      estBoutonSauvegardePret = false;
       btn.classList.remove('highlight-pulse');
 
       try {
@@ -2198,13 +2228,13 @@
         if (result.status !== "success") {
           overlay.classList.remove('active');
           afficherMessage("Erreur d'enregistrement : " + (result.message || "Erreur serveur"), "error");
-          btn.disabled = false;
           actualiserEtatBouton();
           return;
         }
 
         aDesModifications = false;
         aDesDonneesEnregistrees = true;
+        aEteAvertiSauvegarde = false;
         overlay.classList.remove('active');
 
         actualiserRecap();
